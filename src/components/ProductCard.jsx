@@ -6,13 +6,14 @@ import {
   Typography,
   CardActionArea,
   Button,
+  Chip,
 } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addItem } from "../store/cart/cartSlice";
 
-const ProductCard = ({ image, price, title, description, id }) => {
+const ProductCard = ({ image, price, title, description, id, category }) => {
   const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const ProductCard = ({ image, price, title, description, id }) => {
   };
 
   const handleAddToCart = () => {
-    dispatch(addItem({ id, title, price, quantity: 1 }));
+    dispatch(addItem({ id, title, price, description, image }));
     console.log(items);
   };
   // useEffect(() => {
@@ -42,6 +43,7 @@ const ProductCard = ({ image, price, title, description, id }) => {
           alt={title}
         />
         <CardContent>
+          <Chip label={category} sx={{ position: "relative" }} />
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>

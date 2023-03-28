@@ -13,6 +13,7 @@ import { LogoutOutlined, NoteAdd } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
+import imageLogo from "../Screenshot 2023-03-28 0348323527.png";
 
 function Header() {
   const { role } = useSelector((state) => state.auth);
@@ -40,10 +41,15 @@ function Header() {
   };
 
   return (
-    <AppBar position="sticky" sx={{ marginBottom: "50px" }}>
+    <AppBar
+      position="sticky"
+      sx={{ background: "linear-gradient(50deg, #282e37, #555a61)" }}
+    >
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          <Link to="/">Store</Link>
+          <Link to="/">
+            <img src={imageLogo} height="80" />
+          </Link>
         </Typography>
         {/* <IconButton onClick={handleAvatarClick} sx={{ ml: 2 }}>
           <NoteAdd />

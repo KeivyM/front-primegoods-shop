@@ -48,12 +48,15 @@ export const schemaProduct = yup
   .shape({
     title: yup.string().required("El titulo es requerido."),
     description: yup.string().required("la description es requerida."),
-    price: yup.number().required("El precio es requerido."),
+    price: yup
+      .number()
+      // .typeError("Price must be a number")
+      .min(0, "Price must be a positive number")
+      .required("El precio es requerido."),
     images: yup
       .mixed()
       .test("type", "solo se permiten imagenes", (e) => validateExtension(e))
-
-      .required("debes cargar al menos una imagen"), //test('type').required("imagenes son requeridas."),
+      .required("debes cargar al menos una imagen"),
     category: yup.string().required("la categoria es requerida."),
     color: yup.string().notRequired(),
   })

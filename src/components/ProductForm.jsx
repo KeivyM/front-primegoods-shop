@@ -137,12 +137,18 @@ export const ProductForm = () => {
             type="number"
             name="price"
             color="secondary"
-            {...register("price", { required: true })}
+            {...register("price", { required: true, valueAsNumber: true })}
             variant="outlined"
+            // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           />
           {errors.price?.message}
-        </FormControl>
 
+          {/* <input
+            type="number"
+            name="price"
+            {...register("price", { required: true, valueAsNumber: true })}
+          /> */}
+        </FormControl>
         <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
           {/* <TextField onChange={onFileDrop} {...register("images", { required: true })}
             id="outlined-basic"
@@ -176,7 +182,7 @@ export const ProductForm = () => {
         </FormControl>
 
         <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
-          [ 'tech']
+          ["Electronics", "Home", "Fashion", "Sports "]
           <TextField
             id="outlined-basic"
             label="Category"

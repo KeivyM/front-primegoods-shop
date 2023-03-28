@@ -7,11 +7,17 @@ import {
   CardContent,
   CardActions,
   Button,
+  IconButton,
+  Chip,
+  Grid,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { ShoppingCart } from "@mui/icons-material";
 import Header from "../components/Header";
 import { AxiosConfig } from "../utils/AxiosConfig";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useDispatch } from "react-redux";
+import { addItem } from "../store/cart/cartSlice";
 
 // const data = [
 //   {
@@ -48,6 +54,7 @@ const Container = styled("div")({
 });
 
 const ProductPage = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
@@ -56,6 +63,7 @@ const ProductPage = () => {
     const getProduct = async () => {
       try {
         const { data } = await AxiosConfig.get(`/product/${id}`);
+        // console.log(data.data);
         setProduct(data.data);
       } catch (error) {
         console.error(error);
@@ -65,6 +73,12 @@ const ProductPage = () => {
     getProduct();
   }, [id, navigate]);
 
+  const handleAddToCart = () => {
+    const { _id, title, price, description, images, category } = product;
+    dispatch(addItem({ id: _id, title, price, description, image: images[0] }));
+    navigate("/");
+  };
+
   if (!product) {
     return <Typography>Loading...</Typography>;
   }
@@ -73,33 +87,69 @@ const ProductPage = () => {
     <>
       <Header />
       <Container>
+        <IconButton>
+          <ArrowBackIcon onClick={() => navigate("/")} />
+        </IconButton>
         <Card>
-          <CardMedia
-            component="img"
-            image={product.images[0]}
-            alt={product.title}
-          />
-          <CardContent>
-            <Typography variant="h5" component="h2">
-              {product.title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {product.description}
-            </Typography>
-            <Typography variant="h6" component="p">
-              {product.price}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button
-              startIcon={<ShoppingCart />}
-              size="large"
-              variant="contained"
-              color="primary"
+          <Grid container direction="row" spacing={2}>
+            <Grid
+              item
+              sx={{
+                height: "50%",
+                maxHeight: "80vh",
+                maxWidth: "50vw",
+                width: "70%",
+                overflow: "auto",
+              }}
+              xs={8}
             >
-              Add to Cart
-            </Button>
-          </CardActions>
+              <CardMedia
+                component="img"
+                image={product.images[0]}
+                alt={product.title}
+                // height={"50%"}
+                // width={"50%"}
+              />
+            </Grid>
+            <Grid
+              item
+              xs={4}
+              // p=
+              // sx={{
+              //   padding: 2,
+              //   boxSizing: "conte-box",
+              // width: "auto",
+              // bgcolor: "#333",
+              // }}
+            >
+              <CardContent sx={{ position: "relative" }}>
+                <Typography variant="h5" component="h2">
+                  {product.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {product.description}
+                </Typography>
+                <Typography variant="h6" component="p">
+                  {product.price}
+                </Typography>
+                <Chip
+                  label={product.category}
+                  sx={{ position: "absolute", top: "10px", right: "10px" }}
+                />
+              </CardContent>
+              <CardActions sx={{ justifyContent: "center" }}>
+                <Button
+                  startIcon={<ShoppingCart />}
+                  size="large"
+                  variant="contained"
+                  color="primary"
+                  onClick={handleAddToCart}
+                >
+                  Add to Cart
+                </Button>
+              </CardActions>
+            </Grid>
+          </Grid>
         </Card>
       </Container>
     </>

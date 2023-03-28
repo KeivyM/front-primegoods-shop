@@ -2,10 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Loader from "../components/Loader";
-import CartPage from "../pages/CartPage";
-// import { AuthContext } from "../context";
 import HomePage from "../pages/HomePage";
-// import LoginPage from "../pages/LoginPage";
 import LoginPage from "../pages/LoginPage";
 import ProductCreatePage from "../pages/ProductCreatePage";
 import ProductPage from "../pages/ProductPage";
@@ -61,7 +58,6 @@ export const AppRoutes = () => {
           <Route path="/*" element={<Navigate to={`/`} />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/product/:id" element={<ProductPage />} />
-          <Route path="/cart" element={<CartPage />} />
           {role === "admin" && (
             <Route path="/product/create" element={<ProductCreatePage />} />
           )}
