@@ -5,7 +5,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { AxiosConfig } from "../utils/AxiosConfig";
 import {
   Box,
-  Button,
   FormControl,
   IconButton,
   InputAdornment,
@@ -177,7 +176,7 @@ export const LoginForm = () => {
       >
         Ingresar
       </Button> */}
-      <CustomButton disabled={isAuthenticared} />
+      <CustomButton disabled={isAuthenticared} text={"login"} />
       <Link to={"/register"}>Create account</Link>
     </Box>
   );

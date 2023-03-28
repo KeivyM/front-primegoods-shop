@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 
-function CustomButton({ disabled }) {
+function CustomButton({ disabled, text }) {
   return (
     <Button
       variant="contained"
@@ -9,7 +9,7 @@ function CustomButton({ disabled }) {
       style={{ borderRadius: "25px", padding: "10px 20px", fontWeight: "bold" }}
       disabled={disabled}
     >
-      ingresar
+      {text}
     </Button>
   );
 }

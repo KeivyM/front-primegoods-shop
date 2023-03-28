@@ -1,78 +1,51 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Container, Grid } from "@mui/material";
 import Header from "../components/Header";
 // import ProductSlider from "../components/Slider";
-import ProductCard from "../components/Card"; //cambiar card por porductcard
+import ProductCard from "../components/ProductCard"; //cambiar card por porductcard
 import { AxiosConfig } from "../utils/AxiosConfig";
 
-const data = [
-  {
-    id: 1,
-    title: "Title",
-    description: "adkjfd fef dfjhd djhg fjhfd jfdjgh dsjfhd jhs jdfhg fgf ",
-    price: 5.0,
-    category: "tech",
-  },
-  {
-    id: 2,
-    title: "Title",
-    description: "adkjfd fef dfjhd djhg fjhfd jfdjgh dsjfhd jhs jdfhg fgf ",
-    price: 5.0,
-    category: "tech",
-  },
-  {
-    id: 3,
-    title: "Title",
-    description: "adkjfd fef dfjhd djhg fjhfd jfdjgh dsjfhd jhs jdfhg fgf ",
-    price: 5.0,
-    category: "tech",
-  },
-  {
-    id: 4,
-    title: "Title",
-    description: "adkjfd fef dfjhd djhg fjhfd jfdjgh dsjfhd jhs jdfhg fgf ",
-    price: 5.0,
-    category: "tech",
-  },
-];
-
 const HomePage = () => {
-  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const getProducts = async () => {
+      if (!localStorage.getItem("cartItems")) {
+        localStorage.setItem("cartItems", "[]");
+      }
       const { data } = await AxiosConfig.get("getProducts");
       setProducts(data.data);
+      localStorage.setItem("products", JSON.stringify(data.data));
     };
     getProducts();
   }, []);
-
-  const handleClick = (productId) => {
-    navigate(`product/${productId}`);
-  };
 
   return (
     <>
       <Header />
       <Container style={{ height: "100vh" }}>
-        <Grid container spacing={2} textAlign="center" justifyContent="center">
+        <Grid
+          container
+          spacing={{ xs: 2, sm: 3, md: 4 }}
+          textAlign="center"
+          justifyContent="center"
+        >
           {products.map((product) => {
             return (
               <Grid
                 item
                 xs={10}
-                sm={2}
+                sm={5}
+                md={3}
                 sx={{ alignContent: "center" }}
-                onClick={() => handleClick(product._id)}
                 key={product._id}
               >
                 <ProductCard
                   image={product.images[0]}
-                  price="$10.99"
-                  title="Product Title"
-                  description="This is a description of the product."
+                  price={product.price}
+                  title={product.title}
+                  description={product.description}
+                  id={product._id}
                 />
               </Grid>
               // <div

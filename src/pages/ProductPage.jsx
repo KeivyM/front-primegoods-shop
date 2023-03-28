@@ -63,7 +63,7 @@ const ProductPage = () => {
       }
     };
     getProduct();
-  }, [id]);
+  }, [id, navigate]);
 
   if (!product) {
     return <Typography>Loading...</Typography>;

@@ -9,12 +9,14 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 // import LogoutIcon from "@mui/icons-material/Logout";
-import { LogoutOutlined, AddCircle, NoteAdd } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { LogoutOutlined, NoteAdd } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
+  const { role } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -43,9 +45,9 @@ function Header() {
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           <Link to="/">Store</Link>
         </Typography>
-        <IconButton onClick={handleAvatarClick} sx={{ ml: 2 }}>
+        {/* <IconButton onClick={handleAvatarClick} sx={{ ml: 2 }}>
           <NoteAdd />
-        </IconButton>
+        </IconButton> */}
         <IconButton onClick={handleAvatarClick} sx={{ ml: 2 }}>
           <Avatar />
         </IconButton>
@@ -54,9 +56,15 @@ function Header() {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
+          {role === "admin" && (
+            <MenuItem onClick={() => navigate("/product/create")}>
+              <NoteAdd sx={{ mr: 1 }} />
+              Add product
+            </MenuItem>
+          )}
           <MenuItem onClick={handleLogout}>
             <LogoutOutlined sx={{ mr: 1 }} />
-            Cerrar sesión
+            Logout
           </MenuItem>
         </Menu>
       </Toolbar>

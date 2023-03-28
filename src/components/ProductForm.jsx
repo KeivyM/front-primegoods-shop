@@ -1,88 +1,27 @@
-import { useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { AxiosConfig } from "../utils/AxiosConfig";
-import {
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaProduct } from "../utils/schemas";
 import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
-import { checkingAuthentication } from "../store/auth/thunks";
-import { login } from "../store/auth/authSlice";
-import CustomButton from "./Button";
-
-const options = [
-  { value: "option1", label: "Option 1" },
-  { value: "option2", label: "Option 2" },
-  { value: "option3", label: "Option 3" },
-];
+import { useSelector } from "react-redux";
 
 export const ProductForm = () => {
-  let fromDta = new FormData();
-  // const [value, setValue] = useState("");
-
-  const handleChange = (event) => {
-    console.log(event);
-    // setValue(event.target.value);
-  };
-
-  const [name, setName] = useState("");
-
-  const handleInputChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const onFileDrop = (e) => {
-    console.log(e.target.files);
-    const [file] = e.target.files;
-    // setFileUpload(file?.name);
-    // fromDta.append("images", [file]);
-    // setValue("images", [file]);
-    console.log(file);
-    setValue(
-      "images",
-      Object.assign(file, {
-        preview: URL.createObjectURL(file),
-      })
-    );
-    console.log(file);
-  };
-  let formData = new FormData()
-  let archivoDeImagen;
-  function handleFileChange(event) {
-     archivoDeImagen = event.target.files[0];
-    console.log(archivoDeImagen)
-    formData.append('images', archivoDeImagen)
-  // Agregar el archivo a un FormData o realizar otra acción
-  }
-  
-
-  // const dispatch = useDispatch();
-  // let navigate = useNavigate();
   const { status } = useSelector((state) => state.auth);
 
-  // const [values, setValues] = useState({
-  //   showPassword: false,
-  // });
-  // console.log(status);
   const isAuthenticared = useMemo(() => status === "checking", [status]);
+
+  let formData = new FormData();
+  let archivoDeImagen;
+
+  function handleFileChange(event) {
+    archivoDeImagen = event.target.files[0];
+    formData.append("images", archivoDeImagen);
+  }
+
   const {
     register,
-    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -92,38 +31,17 @@ export const ProductForm = () => {
       price: 0,
       images: "",
       category: "",
-      color: "",
     },
     resolver: yupResolver(schemaProduct),
   });
 
   const onSubmit = async (productData) => {
-    // const formData = new FormData();
-          formData.append('title', productData.title);
-          formData.append('category', productData.category);
-          formData.append('price', productData.price);
-          // formData.append('images', archivoDeImagen);
-          formData.append('description', productData.description);
-          // formData.append('imagen2', archivoDeImagen2);
-    /////////////////////////////////////////////////////////
-    // const handleFileUpload = (event) => {
-    //   const file = event.target.files[0];
-    //   const formData = new FormData();
-    //   formData.append("image", file);
-
-    //   fetch("/api/uploadImage", {
-    //     method: "POST",
-    //     body: formData,
-    //   })
-    //     .then((response) => {
-    //       // Manejar la respuesta del servidor
-    //     })
-    //     .catch((error) => {
-    //       // Manejar errores de solicitud
-    //     });
-    // };
-    ///////////////////////////////////////////////////////////
     try {
+      formData.append("title", productData.title);
+      formData.append("category", productData.category);
+      formData.append("price", productData.price);
+      formData.append("description", productData.description);
+
       const { data } = await AxiosConfig.post("product/create", formData);
       console.log(data);
 
@@ -176,7 +94,7 @@ export const ProductForm = () => {
       }}
     >
       <Typography variant="h4" component="h4">
-        Crear producto
+        New Product
       </Typography>
       <Box
         sx={{
@@ -225,12 +143,6 @@ export const ProductForm = () => {
           {errors.price?.message}
         </FormControl>
 
-        <TextField
-          label="Ingrese su nombre"
-          value={name}
-          onChange={handleInputChange}
-        />
-
         <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
           {/* <TextField onChange={onFileDrop} {...register("images", { required: true })}
             id="outlined-basic"
@@ -244,7 +156,6 @@ export const ProductForm = () => {
             variant="outlined"
           /> */}
 
-
           {/* 
           <Input
             // ref={fileInputRef}
@@ -255,7 +166,12 @@ export const ProductForm = () => {
             // multiple
             name="images"
           /> */}
-          <input type='file' multiple name='images'  onChange={handleFileChange} />
+          <input
+            type="file"
+            multiple
+            name="images"
+            onChange={handleFileChange}
+          />
           {errors.images?.message}
         </FormControl>
 
@@ -267,32 +183,15 @@ export const ProductForm = () => {
             type="text"
             name="category"
             color="secondary"
+            disabled={isAuthenticared}
             {...register("category", { required: true })}
             variant="outlined"
           />
           {errors.category?.message}
         </FormControl>
-
-        <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
-          <TextField
-            id="outlined-basic"
-            label="Color"
-            type="text"
-            name="color"
-            color="secondary"
-            {...register("color", { required: false })}
-            variant="outlined"
-          />
-          {errors.color?.message}
-        </FormControl>
       </Box>
 
-      <Button
-        disabled={isAuthenticared}
-        type="submit"
-        variant="contained"
-        sx={{ margin: "0 auto" }}
-      >
+      <Button type="submit" variant="contained" sx={{ margin: "0 auto" }}>
         Ingresar
       </Button>
     </Box>
