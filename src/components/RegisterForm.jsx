@@ -30,7 +30,7 @@ export const RegisterForm = () => {
     showPassword: false,
     showPasswordRepeat: false,
   });
-  // console.log(status);
+
   const isAuthenticared = useMemo(() => status === "checking", [status]);
   const {
     register,
@@ -52,18 +52,12 @@ export const RegisterForm = () => {
     dispatch(checkingAuthentication());
     try {
       const { data } = await AxiosConfig.post("register", userData);
-      console.log(data);
+
       const user = { ...data.user, token: data.token };
       dispatch(login(data.user));
       const userStringify = JSON.stringify(user);
       localStorage.setItem("userAuth", userStringify);
-      // AxiosConfig.defaults.headers.common["Authorization"] =
-      //   `Bearer ${data.token}` || "";
 
-      //   if (typeof data === "string") throw new Error(data);
-
-      //   localStorage.setItem("userAuth", data.token);
-      //   setUserAuth(data.token);
       navigate("/");
     } catch (error) {
       throw Swal.fire({
@@ -120,7 +114,7 @@ export const RegisterForm = () => {
       >
         <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
           <TextField
-            id="outlined-basic-username"
+            id="outlined-basic-name"
             label="Name"
             type="text"
             name="name"
@@ -134,7 +128,7 @@ export const RegisterForm = () => {
         <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
           <TextField
             id="outlined-basic"
-            label="Correo"
+            label="Email"
             type="email"
             name="email"
             color="secondary"
@@ -163,13 +157,14 @@ export const RegisterForm = () => {
           variant="outlined"
         >
           <InputLabel htmlFor="outlined-adornment-password">
-            Contraseña
+            Password
           </InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
             type={values.showPassword ? "text" : "password"}
             name="password"
             color="secondary"
+            autoComplete="on"
             {...register("password", { required: true })}
             endAdornment={
               <InputAdornment position="end">
@@ -183,7 +178,7 @@ export const RegisterForm = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label="Contraseña"
+            label="Password"
           />
           {errors.password?.message}
         </FormControl>
@@ -194,13 +189,14 @@ export const RegisterForm = () => {
           variant="outlined"
         >
           <InputLabel htmlFor="outlined-adornment-password-repeat">
-            Repite la Contraseña
+            Confirm password
           </InputLabel>
           <OutlinedInput
             id="outlined-adornment-password-repeat"
             type={values.showPasswordRepeat ? "text" : "password"}
             name="passwordRepeat"
             color="secondary"
+            autoComplete="on"
             {...register("passwordRepeat", { required: true })}
             endAdornment={
               <InputAdornment position="end">
@@ -218,20 +214,11 @@ export const RegisterForm = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label="Repite la Contraseña"
+            label="Confirm password"
           />
           {errors.passwordRepeat?.message}
         </FormControl>
       </Box>
-
-      {/* <Button
-        disabled={isAuthenticared}
-        type="submit"
-        variant="contained"
-        sx={{ margin: "0 auto" }}
-      >
-        Ingresar
-      </Button> */}
       <CustomButton disabled={isAuthenticared} text={"Register"} />
       <Link to={"/login"}>Login</Link>
     </Box>

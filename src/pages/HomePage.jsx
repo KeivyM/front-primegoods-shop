@@ -19,6 +19,7 @@ export const HomePage = () => {
       const { data } = await AxiosConfig.get("getProducts");
       setProducts(data.data);
       localStorage.setItem("products", JSON.stringify(data.data));
+      //------prueba con api gratuita--------//
       // const { data } = await axios.get(
       //   "https://api.escuelajs.co/api/v1/products"
       // );
@@ -45,12 +46,7 @@ export const HomePage = () => {
   return (
     <>
       <Header />
-      <Grid
-        flexDirection="column"
-        flexWrap={"wrap"}
-        container
-        // pt={10}
-      >
+      <Grid flexDirection="column" flexWrap={"wrap"} container>
         <SearchInput
           options={products}
           setSearchByTitle={setSearchByTitle}
@@ -109,7 +105,6 @@ export const HomePage = () => {
                 );
               })}
         </Grid>
-        {/* </Grid> */}
         {/* <ProductSlider /> */}
         <Divider orientation="vertical" sx={{ height: "100%" }} />
       </Grid>

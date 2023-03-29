@@ -1,17 +1,7 @@
-import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AxiosConfig } from "../utils/AxiosConfig";
-import {
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  TextField,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import InfoIcon from "@mui/icons-material/Info";
+import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaProduct } from "../utils/schemas";
 import Swal from "sweetalert2";
@@ -19,18 +9,14 @@ import "../css/inputSelectImage.css";
 import { SelectCategory } from "./SelectCategory";
 
 export const ProductForm = () => {
-  const { status } = useSelector((state) => state.auth);
-  const [selectedValue, setSelectedValue] = useState("");
-
-  // const
-  const isAuthenticared = useMemo(() => status === "checking", [status]);
+  const [valueCategory, setSelectedValue] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [valueImagen, setArchivoDeImagen] = useState(null);
 
   let formData = new FormData();
-  let archivoDeImagen;
 
   function handleFileChange(event) {
-    archivoDeImagen = event.target.files[0];
-    formData.append("images", archivoDeImagen);
+    setArchivoDeImagen(event.target.files[0]);
   }
 
   const {
@@ -43,32 +29,32 @@ export const ProductForm = () => {
       description: "",
       price: 0,
       images: "",
-      category: "",
     },
     resolver: yupResolver(schemaProduct),
   });
 
   const onSubmit = async (productData) => {
     try {
+      setSaving(true);
+      if (valueCategory.length === 0) {
+        throw Object.assign(new Error("Empty Fields"), { code: 400 });
+      }
+
       formData.append("title", productData.title);
-      formData.append("category", productData.category);
+      formData.append("images", valueImagen);
+      formData.append("category", valueCategory);
       formData.append("price", productData.price);
       formData.append("description", productData.description);
 
       const { data } = await AxiosConfig.post("product/create", formData);
+      setSaving(false);
 
       return Swal.fire({
         title: data.msg,
-        // text: "Intentalo luego",
         icon: "success",
       });
-      // const user = { ...data.user, token: data.token };
-      // dispatch(login(data.user));
-      // const userStringify = JSON.stringify(user);
-      // localStorage.setItem("userAuth", userStringify);
-
-      // navigate("/");
     } catch (error) {
+      setSaving(false);
       Swal.fire({
         title: "Check all fields!",
         text: error?.response?.data?.msg,
@@ -156,38 +142,16 @@ export const ProductForm = () => {
         </FormControl>
 
         <SelectCategory
-          selectedValue={selectedValue}
+          valueCategory={valueCategory}
           setSelectedValue={setSelectedValue}
         />
-
-        {/* <Box alignItems={"center"} display="flex">
-          <Tooltip
-            title={`*STRICT* allowed categories ["Electronics", "Home", "Fashion", "Sports"]`}
-          >
-            <IconButton>
-              <InfoIcon />
-            </IconButton>
-          </Tooltip>
-          <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
-            <TextField
-              id="outlined-basic"
-              label="Category"
-              type="text"
-              name="category"
-              color="secondary"
-              disabled={isAuthenticared}
-              {...register("category", { required: true })}
-              variant="outlined"
-            />
-            {errors.category?.message}
-          </FormControl>
-        </Box> */}
       </Box>
 
       <Button
         type="submit"
         variant="contained"
         color="common"
+        disabled={saving}
         sx={{ margin: "0 auto", color: "white" }}
       >
         Create

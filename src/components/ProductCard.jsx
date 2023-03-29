@@ -8,7 +8,7 @@ import {
   Button,
   Chip,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addItem } from "../store/cart/cartSlice";
 
@@ -20,7 +20,6 @@ export const ProductCard = ({
   id,
   category,
 }) => {
-  const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,13 +29,7 @@ export const ProductCard = ({
 
   const handleAddToCart = () => {
     dispatch(addItem({ id, title, price, description, image }));
-    console.log(items);
   };
-  // useEffect(() => {
-  //   if (!localStorage.getItem("cartItems")) {
-  //     console.log("no existe");
-  //   }
-  // }, []);
 
   return (
     <Card xs={{ border: "1px solid red" }}>

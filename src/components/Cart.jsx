@@ -31,7 +31,7 @@ const Cart = () => {
       </Grid>
       <List sx={{ width: "100%" }}>
         {items.map((producto, i) => (
-          <Box key={producto.id}>
+          <Box key={producto.id + "-" + i}>
             {i === 0 && <Divider sx={{ bgcolor: "text.main" }} />}
             <ListItem>
               <ListItemAvatar>

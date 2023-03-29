@@ -29,7 +29,7 @@ export const LoginForm = () => {
   const [values, setValues] = useState({
     showPassword: false,
   });
-  // console.log(status);
+
   const isAuthenticared = useMemo(() => status === "checking", [status]);
   const {
     register,
@@ -49,16 +49,13 @@ export const LoginForm = () => {
       const { data } = await AxiosConfig.post("login", userData);
 
       const user = { ...data.user, token: data.token };
+
       dispatch(login(data.user));
+
       const userStringify = JSON.stringify(user);
+
       localStorage.setItem("userAuth", userStringify);
-      // AxiosConfig.defaults.headers.common["Authorization"] =
-      //   `Bearer ${data.token}` || "";
 
-      //   if (typeof data === "string") throw new Error(data);
-
-      //   localStorage.setItem("userAuth", data.token);
-      //   setUserAuth(data.token);
       navigate("/");
     } catch (error) {
       if (error.code === "ECONNABORTED") {
@@ -127,7 +124,7 @@ export const LoginForm = () => {
         <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
           <TextField
             id="outlined-basic"
-            label="Correo"
+            label="Email"
             type="email"
             name="email"
             color="secondary"
@@ -143,12 +140,13 @@ export const LoginForm = () => {
           variant="outlined"
         >
           <InputLabel htmlFor="outlined-adornment-password">
-            Contraseña
+            Password
           </InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
             type={values.showPassword ? "text" : "password"}
-            name="email"
+            name="password"
+            autoComplete="on"
             {...register("password", { required: true })}
             endAdornment={
               <InputAdornment position="end">
@@ -162,20 +160,12 @@ export const LoginForm = () => {
                 </IconButton>
               </InputAdornment>
             }
-            label="Contraseña"
+            label="Password"
           />
           {errors.password?.message}
         </FormControl>
       </Box>
 
-      {/* <Button
-        disabled={isAuthenticared}
-        type="submit"
-        variant="contained"
-        sx={{ margin: "0 auto" }}
-      >
-        Ingresar
-      </Button> */}
       <CustomButton disabled={isAuthenticared} text={"login"} />
       <Link to={"/register"}>Create account</Link>
     </Box>

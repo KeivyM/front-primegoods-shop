@@ -50,14 +50,12 @@ export const schemaProduct = yup
     description: yup.string().required("la description es requerida."),
     price: yup
       .number()
-      // .typeError("Price must be a number")
       .min(0, "Price must be a positive number")
       .required("El precio es requerido."),
     images: yup
       .mixed()
       .test("type", "solo se permiten imagenes", (e) => validateExtension(e))
       .required("debes cargar al menos una imagen"),
-    category: yup.string().required("la categoria es requerida."),
     color: yup.string().notRequired(),
   })
   .required()

@@ -9,14 +9,13 @@ import {
   Box,
 } from "@mui/material";
 import { useState } from "react";
-// import LogoutIcon from "@mui/icons-material/Logout";
 import { LogoutOutlined, NoteAdd } from "@mui/icons-material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/auth/authSlice";
 import { Link, useNavigate } from "react-router-dom";
 import imageLogo from "../Screenshot 2023-03-28 0348323527.png";
 import Cart from "./Cart";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export const Header = () => {
   const [openCart, setOpenCart] = useState(false);
@@ -39,9 +38,9 @@ export const Header = () => {
       localStorage.removeItem("userAuth");
       dispatch(logout());
       navigate("/");
-    } catch (error) {}
-
-    // Lógica para cerrar sesión
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   FormControl,
   FormControlLabel,
@@ -20,13 +19,13 @@ export const SelectCategory = ({ selectedValue, setSelectedValue }) => {
         onChange={handleChange}
       >
         <FormControlLabel
-          value="electronics"
+          value="Electronics"
           control={<Radio />}
           label="Electronics"
         />
-        <FormControlLabel value="home" control={<Radio />} label="Home" />
-        <FormControlLabel value="fashion" control={<Radio />} label="Fashion" />
-        <FormControlLabel value="sports" control={<Radio />} label="Sports" />
+        <FormControlLabel value="Home" control={<Radio />} label="Home" />
+        <FormControlLabel value="Fashion" control={<Radio />} label="Fashion" />
+        <FormControlLabel value="Sports" control={<Radio />} label="Sports" />
       </RadioGroup>
     </FormControl>
   );
