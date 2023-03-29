@@ -7,6 +7,7 @@ import {
   Menu,
   MenuItem,
   Box,
+  Badge,
 } from "@mui/material";
 import { useState } from "react";
 import { LogoutOutlined, NoteAdd } from "@mui/icons-material";
@@ -20,6 +21,7 @@ import Cart from "./Cart";
 export const Header = () => {
   const [openCart, setOpenCart] = useState(false);
   const { role } = useSelector((state) => state.auth);
+  const items = useSelector((state) => state.cart.items);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -60,7 +62,9 @@ export const Header = () => {
           onClick={() => setOpenCart((prev) => !prev)}
           sx={{ ml: 2, color: " #83C227" }}
         >
-          <ShoppingCartIcon fontSize="medium" bgcolor="white" />
+          <Badge badgeContent={items.length} color="secondary">
+            <ShoppingCartIcon fontSize="medium" bgcolor="white" />
+          </Badge>
         </IconButton>
         <IconButton onClick={handleAvatarClick} sx={{ ml: 2 }}>
           <Avatar />
