@@ -5,12 +5,12 @@ import {
   CardContent,
   Typography,
   CardActionArea,
-  Button,
   Chip,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addItem } from "../store/cart/cartSlice";
+import CustomButton from "./Button";
 
 export const ProductCard = ({
   image,
@@ -32,11 +32,11 @@ export const ProductCard = ({
   };
 
   return (
-    <Card xs={{ border: "1px solid red" }}>
+    <Card sx={{ border: "1px solid #0005", p: 2 }}>
       <CardActionArea onClick={() => handleClick(id)}>
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           width="200"
           image={image}
           alt={title}
@@ -50,20 +50,17 @@ export const ProductCard = ({
             {description}
           </Typography>
           <Typography variant="h6" color="text.secondary">
-            {price}
+            ${price?.toFixed(2)}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <Button
+
+      <CustomButton
+        text="add to cart"
+        onClick={handleAddToCart}
         startIcon={<ShoppingCart />}
         size="small"
-        variant="contained"
-        color="primary"
-        fullWidth
-        onClick={handleAddToCart}
-      >
-        Add to Cart
-      </Button>
+      />
     </Card>
   );
 };

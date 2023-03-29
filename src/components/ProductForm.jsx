@@ -1,14 +1,25 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AxiosConfig } from "../utils/AxiosConfig";
-import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaProduct } from "../utils/schemas";
 import Swal from "sweetalert2";
 import "../css/inputSelectImage.css";
 import { SelectCategory } from "./SelectCategory";
+import { useNavigate } from "react-router-dom";
+import CustomButton from "./Button";
 
 export const ProductForm = () => {
+  const navigate = useNavigate();
   const [valueCategory, setSelectedValue] = useState("");
   const [saving, setSaving] = useState(false);
   const [valueImagen, setArchivoDeImagen] = useState(null);
@@ -81,9 +92,14 @@ export const ProductForm = () => {
         margin: "0 auto",
       }}
     >
-      <Typography variant="h4" component="h4">
-        New Product
-      </Typography>
+      <Grid direction={"row"} container justifyContent={"center"} gap={3}>
+        <IconButton onClick={() => navigate("/")}>
+          <ArrowBackIcon />
+        </IconButton>
+        <Typography variant="h4" component="h4">
+          New Product
+        </Typography>
+      </Grid>
       <Box
         sx={{
           display: "flex",
@@ -147,15 +163,12 @@ export const ProductForm = () => {
         />
       </Box>
 
-      <Button
-        type="submit"
-        variant="contained"
+      <CustomButton
+        text="Create"
         color="common"
         disabled={saving}
         sx={{ margin: "0 auto", color: "white" }}
-      >
-        Create
-      </Button>
+      />
     </Box>
   );
 };

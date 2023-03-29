@@ -46,7 +46,13 @@ export const HomePage = () => {
   return (
     <>
       <Header />
-      <Grid flexDirection="column" flexWrap={"wrap"} container>
+      <Grid
+        flexDirection="column"
+        flexWrap={"wrap"}
+        sx={{ p: "5px 20px 20px 20px", margin: "0 auto" }}
+        maxWidth={"1500px"}
+        container
+      >
         <SearchInput
           options={products}
           setSearchByTitle={setSearchByTitle}

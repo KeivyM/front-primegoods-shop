@@ -11,7 +11,11 @@ export const SelectCategory = ({ selectedValue, setSelectedValue }) => {
   };
 
   return (
-    <FormControl component="fieldset">
+    <FormControl
+      component="fieldset"
+      sx={{ m: 1, width: "30ch" }}
+      variant="outlined"
+    >
       <RadioGroup
         aria-label="category"
         name="category"

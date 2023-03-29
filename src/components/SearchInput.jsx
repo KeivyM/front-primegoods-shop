@@ -52,6 +52,7 @@ export const SearchInput = ({
         display: "flex",
       }}
       label="Search"
+      color="secondary"
       variant="outlined"
       value={searchValue}
       onChange={handleSearchChange}
