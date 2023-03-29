@@ -23,12 +23,29 @@ export const SelectCategory = ({ selectedValue, setSelectedValue }) => {
         onChange={handleChange}
       >
         <FormControlLabel
+          value="Automotive"
+          control={<Radio />}
+          label="Automotive"
+        />
+        <FormControlLabel value="Beauty" control={<Radio />} label="Beauty" />
+        <FormControlLabel
+          value="Clothing"
+          control={<Radio />}
+          label="Clothing"
+        />
+        <FormControlLabel
           value="Electronics"
           control={<Radio />}
           label="Electronics"
         />
-        <FormControlLabel value="Home" control={<Radio />} label="Home" />
         <FormControlLabel value="Fashion" control={<Radio />} label="Fashion" />
+        <FormControlLabel value="Grocery" control={<Radio />} label="Grocery" />
+        <FormControlLabel value="Home" control={<Radio />} label="Home" />
+        <FormControlLabel
+          value="Pet Supplies"
+          control={<Radio />}
+          label="Pet Supplies"
+        />
         <FormControlLabel value="Sports" control={<Radio />} label="Sports" />
       </RadioGroup>
     </FormControl>

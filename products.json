@@ -1,0 +1,281 @@
+[{
+  "_id": {
+    "$oid": "64246b30a48b83218a8e5f3f"
+  },
+  "title": "Tesla Model S",
+  "description": "El auto eléctrico más rápido del mercado",
+  "price": 89000,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680108336/eefziwfpnietjuyflhwo.jpg"
+  ],
+  "category": "Automotive",
+  "color": null,
+  "createdAt": 1680108336,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64246b6da48b83218a8e5f42"
+  },
+  "title": "Ford Mustang",
+  "description": "Muscle car icónico con potencia y estilo",
+  "price": 50000,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680108396/kmy72euqxe1e4xdlblls.jpg"
+  ],
+  "category": "Automotive",
+  "color": null,
+  "createdAt": 1680108397,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64246bb3a48b83218a8e5f45"
+  },
+  "title": "Jeep Wrangler",
+  "description": "Vehículo todo terreno capaz de conquistar cualquier terreno",
+  "price": 30000,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680108466/jaq19rrwi3u3fxjurpod.jpg"
+  ],
+  "category": "Automotive",
+  "color": null,
+  "createdAt": 1680108467,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64246ca6a48b83218a8e5f48"
+  },
+  "title": "Honda Civic",
+  "description": "Compacto y confiable con un gran rendimiento de combustible",
+  "price": 25000,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680108708/o3ffooqnvc5vvrbhhpi0.webp"
+  ],
+  "category": "Automotive",
+  "color": null,
+  "createdAt": 1680108710,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64246cf4a48b83218a8e5f4b"
+  },
+  "title": "Toyota Camry",
+  "description": "Sedán confiable y duradero con una excelente reputación de calidad",
+  "price": 55000,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680108788/gn1q58i6wahmvmdrkntc.png"
+  ],
+  "category": "Automotive",
+  "color": null,
+  "createdAt": 1680108788,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64248e108d0c94227997998d"
+  },
+  "title": "Raqueta de tenis Wilson",
+  "description": "Raqueta de tenis con tecnología avanzada para un rendimiento óptimo en la cancha",
+  "price": 50,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680117263/ppnnrr4tlu7uvcpjsado.jpg"
+  ],
+  "category": "Sports",
+  "color": null,
+  "createdAt": 1680117264,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64248e668d0c942279979990"
+  },
+  "title": "Mochila para senderismo North Face",
+  "description": "Mochila duradera y cómoda para largas caminatas en la naturaleza",
+  "price": 90,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680117350/p9b1c2nrl37xlpvajlhx.jpg"
+  ],
+  "category": "Sports",
+  "color": null,
+  "createdAt": 1680117350,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64248ec48d0c942279979993"
+  },
+  "title": "Pelota de fútbol Nike",
+  "description": "Pelota de fútbol de alta calidad para un juego preciso y fluido",
+  "price": 90,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680117444/cenvfvxlw7loysoftdb4.webp"
+  ],
+  "category": "Sports",
+  "color": null,
+  "createdAt": 1680117444,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "64248ff28d0c94227997999a"
+  },
+  "title": "Zapatillas deportivas",
+  "description": "Ideal para running y para todo tipo de terrenos",
+  "price": 80,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680117746/shxffnthruywqlt6yvar.jpg"
+  ],
+  "category": "Sports",
+  "color": null,
+  "createdAt": 1680117746,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642490628d0c94227997999d"
+  },
+  "title": "Serum Facial",
+  "description": "Revitaliza tu piel con nuestro serum facial reafirmante y suavizante.",
+  "price": 29,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680117857/wvvq8zo3qkbm6omucfyg.png"
+  ],
+  "category": "Beauty",
+  "color": null,
+  "createdAt": 1680117858,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642490ce8d0c9422799799a4"
+  },
+  "title": "Loción Corporal",
+  "description": "Mantén tu piel suave e hidratada todo el día con nuestra loción corporal.",
+  "price": 15,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680117966/nqojsbk2shponyczjsrj.jpg"
+  ],
+  "category": "Beauty",
+  "color": null,
+  "createdAt": 1680117966,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642492308d0c9422799799a7"
+  },
+  "title": "Collar para perros",
+  "description": "Collar resistente y cómodo para perros de todas las razas y tamaños",
+  "price": 28,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680118319/axswm6nghwpmhf77zpne.jpg"
+  ],
+  "category": "Pet Supplies",
+  "color": null,
+  "createdAt": 1680118320,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6424927f8d0c9422799799aa"
+  },
+  "title": "Juguete para gatos",
+  "description": "Juguete interactivo para mantener a los gatos entretenidos y estimulados",
+  "price": 12,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680118398/hcuwg7twjayhmhg83tzu.webp"
+  ],
+  "category": "Pet Supplies",
+  "color": null,
+  "createdAt": 1680118399,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642492dd8d0c9422799799b5"
+  },
+  "title": "Cama para mascotas",
+  "description": "Cama suave y cómoda para perros y gatos de todos los tamaños",
+  "price": 29,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680118493/cgrmxusnoqbcctdkwgbv.jpg"
+  ],
+  "category": "Pet Supplies",
+  "color": null,
+  "createdAt": 1680118493,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642493068d0c9422799799b8"
+  },
+  "title": "Cama para mascotas",
+  "description": "Cama suave y cómoda para perros y gatos de todos los tamaños",
+  "price": 29,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680118533/l2zrhrcppo22ve4hqtqn.webp"
+  ],
+  "category": "Pet Supplies",
+  "color": null,
+  "createdAt": 1680118534,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642493878d0c9422799799bb"
+  },
+  "title": "Cortinas opacas",
+  "description": "Cortinas que bloquean la luz para una mayor privacidad y comodidad",
+  "price": 37,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680118663/wlchz0x5sx8pm2fyuue6.jpg"
+  ],
+  "category": "Pet Supplies",
+  "color": null,
+  "createdAt": 1680118663,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642494268d0c9422799799c2"
+  },
+  "title": "Juego de sábanas",
+  "description": "Sábanas suaves y cómodas para una cama acogedora",
+  "price": 48,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680118822/cesgoaeg69l9fgmqusst.jpg"
+  ],
+  "category": "Home",
+  "color": null,
+  "createdAt": 1680118822,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "642494c38d0c9422799799c5"
+  },
+  "title": "Apple iPhone 13",
+  "description": "El último teléfono inteligente de Apple con un procesador avanzado y una cámara mejorada",
+  "price": 1000,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680118979/hro70rioeuxmbe160rz3.jpg"
+  ],
+  "category": "Electronics",
+  "color": null,
+  "createdAt": 1680118979,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6424954a8d0c9422799799c8"
+  },
+  "title": "Sony PlayStation 5",
+  "description": "La consola de juegos más avanzada de Sony con un rendimiento y gráficos mejorados.",
+  "price": 800,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680119114/t66p3u5ykpgnqq6hmw0j.jpg"
+  ],
+  "category": "Electronics",
+  "color": null,
+  "createdAt": 1680119114,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6424958e8d0c9422799799cb"
+  },
+  "title": "Bose QuietComfort Earbuds",
+  "description": "Auriculares inalámbricos con cancelación de ruido para una experiencia de escucha sin interrupciones.",
+  "price": 110,
+  "images": [
+    "https://res.cloudinary.com/dxumzl6bw/image/upload/v1680119181/oma2a3gefwvqtrht3gn1.jpg"
+  ],
+  "category": "Electronics",
+  "color": null,
+  "createdAt": 1680119182,
+  "__v": 0
+}]
