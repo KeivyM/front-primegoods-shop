@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { ShoppingCart } from "@mui/icons-material";
-import Header from "../components/Header";
+import { Header, Loader } from "../components";
 import { AxiosConfig } from "../utils/AxiosConfig";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useDispatch } from "react-redux";
@@ -53,7 +53,7 @@ const Container = styled("div")({
   height: "100vh",
 });
 
-const ProductPage = () => {
+export const ProductPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -63,7 +63,6 @@ const ProductPage = () => {
     const getProduct = async () => {
       try {
         const { data } = await AxiosConfig.get(`/product/${id}`);
-        // console.log(data.data);
         setProduct(data.data);
       } catch (error) {
         console.error(error);
@@ -74,13 +73,13 @@ const ProductPage = () => {
   }, [id, navigate]);
 
   const handleAddToCart = () => {
-    const { _id, title, price, description, images, category } = product;
+    const { _id, title, price, description, images } = product;
     dispatch(addItem({ id: _id, title, price, description, image: images[0] }));
     navigate("/");
   };
 
   if (!product) {
-    return <Typography>Loading...</Typography>;
+    return <Loader />;
   }
 
   return (
@@ -155,5 +154,3 @@ const ProductPage = () => {
     </>
   );
 };
-
-export default ProductPage;

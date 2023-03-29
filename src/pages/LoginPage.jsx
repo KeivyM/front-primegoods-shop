@@ -2,7 +2,7 @@ import { Box, Container, CssBaseline } from "@mui/material";
 import React from "react";
 import { LoginForm } from "../components/LoginForm";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -19,5 +19,3 @@ const LoginPage = () => {
     </Container>
   );
 };
-
-export default LoginPage;

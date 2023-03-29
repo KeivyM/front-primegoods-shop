@@ -3,7 +3,7 @@ import { Box, Container } from "@mui/system";
 import React from "react";
 import { RegisterForm } from "../components/RegisterForm";
 
-const RegisterPage = () => {
+export const RegisterPage = () => {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -20,5 +20,3 @@ const RegisterPage = () => {
     </Container>
   );
 };
-
-export default RegisterPage;

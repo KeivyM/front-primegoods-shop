@@ -66,26 +66,8 @@ export const RegisterForm = () => {
       //   setUserAuth(data.token);
       navigate("/");
     } catch (error) {
-      if (error.code === "ECONNABORTED") {
-        return Swal.fire({
-          title: "Problemas con el servidor!",
-          text: "Intentalo luego",
-          icon: "error",
-          confirmButtonText: "Ok",
-        });
-      }
-
-      if (error.code === "ERR_BAD_REQUEST") {
-        return Swal.fire({
-          title: "Tus datos no son correctos.!",
-          text: "Verificalos",
-          icon: "warning",
-          confirmButtonText: "Ok",
-        });
-      }
-      Swal.fire({
-        title: "Verifica tus datos!",
-        text: error.message,
+      throw Swal.fire({
+        title: error?.response?.data?.msg,
         icon: "error",
         confirmButtonText: "Ok",
       });
@@ -139,7 +121,7 @@ export const RegisterForm = () => {
         <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
           <TextField
             id="outlined-basic-username"
-            label="Username"
+            label="Name"
             type="text"
             name="name"
             color="secondary"

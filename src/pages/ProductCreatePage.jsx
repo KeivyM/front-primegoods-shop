@@ -1,9 +1,8 @@
 import React from "react";
-import Header from "../components/Header";
+import { Header } from "../components";
 import { ProductForm } from "../components/ProductForm";
 
-const ProductCreatePage = () => {
-  //validacion con el usuario del stado para que solo sea admin
+export const ProductCreatePage = () => {
   return (
     <>
       <Header />
@@ -13,5 +12,3 @@ const ProductCreatePage = () => {
     </>
   );
 };
-
-export default ProductCreatePage;

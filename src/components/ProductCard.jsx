@@ -8,12 +8,18 @@ import {
   Button,
   Chip,
 } from "@mui/material";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addItem } from "../store/cart/cartSlice";
 
-const ProductCard = ({ image, price, title, description, id, category }) => {
+export const ProductCard = ({
+  image,
+  price,
+  title,
+  description,
+  id,
+  category,
+}) => {
   const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,5 +74,3 @@ const ProductCard = ({ image, price, title, description, id, category }) => {
     </Card>
   );
 };
-
-export default ProductCard;

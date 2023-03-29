@@ -1,24 +1,15 @@
 import { useEffect, useState } from "react";
-import { Box, Chip, Container, Divider, Grid, Typography } from "@mui/material";
-import Header from "../components/Header";
-// import ProductSlider from "../components/Slider";
-import ProductCard from "../components/ProductCard"; //cambiar card por porductcard
+import { Divider, Grid } from "@mui/material";
 import { AxiosConfig } from "../utils/AxiosConfig";
-import Cart from "../components/Cart";
-// import axios from "axios";
-import SearchInput from "../components/SearchInput";
-// import CartPage from "./CartPage";
+import { ProductCard, SearchInput, Header } from "../components";
 
-const HomePage = () => {
+export const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [productsFiltered, setProductsFiltered] = useState([]);
-  // const [filterTech, setFilterTech] = useState(false);
   const [emptyInput, setEmptyInput] = useState(true);
   const [searchByTitle, setSearchByTitle] = useState([]);
   const [searchByPrice, setSearchByPrice] = useState([]);
   const [searchByCategory, setSearchByCategory] = useState([]);
-  let datass = [];
-  // const [filteName, setFilterTech] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -39,23 +30,22 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    let arrayProducts = [];
     if (emptyInput) {
-      datass = [];
+      arrayProducts = [];
       setProductsFiltered([]);
     } else {
-      datass = [
+      arrayProducts = [
         ...new Set(searchByPrice.concat(searchByTitle, searchByCategory)),
       ];
-      console.log(datass);
-      setProductsFiltered(datass);
+      setProductsFiltered(arrayProducts);
     }
-  }, [searchByTitle, searchByPrice, emptyInput]);
+  }, [searchByTitle, searchByPrice, searchByCategory, emptyInput]);
 
   return (
     <>
       <Header />
       <Grid
-        style={{ height: "100vh" }}
         flexDirection="column"
         flexWrap={"wrap"}
         container
@@ -68,11 +58,8 @@ const HomePage = () => {
           setSearchByCategory={setSearchByCategory}
           setEmptyInput={setEmptyInput}
         />
-        {/* <Grid item xs={5}> */}
         <Grid
           container
-          xs={12}
-          md={9}
           spacing={{ xs: 2, sm: 3, md: 4 }}
           textAlign="center"
           justifyContent="center"
@@ -98,16 +85,6 @@ const HomePage = () => {
                       category={product.category}
                     />
                   </Grid>
-                  // <div
-                  //   onClick={() => handleClick(product.id)}
-                  //   style={{ cursor: "pointer" }}
-                  // >
-                  //   <h2>{product.title}</h2>
-                  //   <Divider />
-                  //   <h3>{product.description}</h3>
-
-                  //   <Chip sx={{ background: "#4495" }} label={product.category} />
-                  // </div>
                 );
               })
             : productsFiltered.map((product) => {
@@ -135,20 +112,7 @@ const HomePage = () => {
         {/* </Grid> */}
         {/* <ProductSlider /> */}
         <Divider orientation="vertical" sx={{ height: "100%" }} />
-        <Grid
-          container
-          xs={10}
-          md={3}
-          sx={{ height: "90%", overflow: "auto" }}
-          minHeight={"80vh"}
-          pt={5}
-          // alignItems="flex-start"
-        >
-          <Cart />
-        </Grid>
       </Grid>
     </>
   );
 };
-
-export default HomePage;

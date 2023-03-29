@@ -1,15 +1,28 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { AxiosConfig } from "../utils/AxiosConfig";
-import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  IconButton,
+  TextField,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schemaProduct } from "../utils/schemas";
 import Swal from "sweetalert2";
-import { useSelector } from "react-redux";
+import "../css/inputSelectImage.css";
+import { SelectCategory } from "./SelectCategory";
 
 export const ProductForm = () => {
   const { status } = useSelector((state) => state.auth);
+  const [selectedValue, setSelectedValue] = useState("");
 
+  // const
   const isAuthenticared = useMemo(() => status === "checking", [status]);
 
   let formData = new FormData();
@@ -43,8 +56,12 @@ export const ProductForm = () => {
       formData.append("description", productData.description);
 
       const { data } = await AxiosConfig.post("product/create", formData);
-      console.log(data);
 
+      return Swal.fire({
+        title: data.msg,
+        // text: "Intentalo luego",
+        icon: "success",
+      });
       // const user = { ...data.user, token: data.token };
       // dispatch(login(data.user));
       // const userStringify = JSON.stringify(user);
@@ -52,26 +69,9 @@ export const ProductForm = () => {
 
       // navigate("/");
     } catch (error) {
-      if (error.code === "ECONNABORTED") {
-        return Swal.fire({
-          title: "Problemas con el servidor!",
-          text: "Intentalo luego",
-          icon: "error",
-          confirmButtonText: "Ok",
-        });
-      }
-
-      if (error.code === "ERR_BAD_REQUEST") {
-        return Swal.fire({
-          title: "Tus datos no son correctos.!",
-          text: "Verificalos",
-          icon: "warning",
-          confirmButtonText: "Ok",
-        });
-      }
       Swal.fire({
-        title: "Verifica tus datos!",
-        text: error.message,
+        title: "Check all fields!",
+        text: error?.response?.data?.msg,
         icon: "error",
         confirmButtonText: "Ok",
       });
@@ -87,10 +87,12 @@ export const ProductForm = () => {
         justifyContent: "center",
         flexDirection: "column",
         gap: "23px",
-        bgcolor: "#eee9",
         p: 10,
         textAlign: "center",
         borderRadius: "15px",
+        boxSizing: "border-box",
+        width: { xs: "100%", md: "60%", lg: "50%" },
+        margin: "0 auto",
       }}
     >
       <Typography variant="h4" component="h4">
@@ -139,39 +141,11 @@ export const ProductForm = () => {
             color="secondary"
             {...register("price", { required: true, valueAsNumber: true })}
             variant="outlined"
-            // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           />
           {errors.price?.message}
-
-          {/* <input
-            type="number"
-            name="price"
-            {...register("price", { required: true, valueAsNumber: true })}
-          /> */}
         </FormControl>
-        <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
-          {/* <TextField onChange={onFileDrop} {...register("images", { required: true })}
-            id="outlined-basic"
-            label="Images"
-            inputProps={{
-              multiple: true,
-            }}
-            type="file"
-            name="images"
-            color="secondary"
-            variant="outlined"
-          /> */}
 
-          {/* 
-          <Input
-            // ref={fileInputRef}
-            {...register("images", { required: true })}
-            type="file"
-            inputProps={{ multiple: true }}
-            onChange={onFileDrop}
-            // multiple
-            name="images"
-          /> */}
+        <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
           <input
             type="file"
             multiple
@@ -181,24 +155,42 @@ export const ProductForm = () => {
           {errors.images?.message}
         </FormControl>
 
-        <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
-          ["Electronics", "Home", "Fashion", "Sports "]
-          <TextField
-            id="outlined-basic"
-            label="Category"
-            type="text"
-            name="category"
-            color="secondary"
-            disabled={isAuthenticared}
-            {...register("category", { required: true })}
-            variant="outlined"
-          />
-          {errors.category?.message}
-        </FormControl>
+        <SelectCategory
+          selectedValue={selectedValue}
+          setSelectedValue={setSelectedValue}
+        />
+
+        {/* <Box alignItems={"center"} display="flex">
+          <Tooltip
+            title={`*STRICT* allowed categories ["Electronics", "Home", "Fashion", "Sports"]`}
+          >
+            <IconButton>
+              <InfoIcon />
+            </IconButton>
+          </Tooltip>
+          <FormControl sx={{ m: 1, width: "30ch" }} variant="outlined">
+            <TextField
+              id="outlined-basic"
+              label="Category"
+              type="text"
+              name="category"
+              color="secondary"
+              disabled={isAuthenticared}
+              {...register("category", { required: true })}
+              variant="outlined"
+            />
+            {errors.category?.message}
+          </FormControl>
+        </Box> */}
       </Box>
 
-      <Button type="submit" variant="contained" sx={{ margin: "0 auto" }}>
-        Ingresar
+      <Button
+        type="submit"
+        variant="contained"
+        color="common"
+        sx={{ margin: "0 auto", color: "white" }}
+      >
+        Create
       </Button>
     </Box>
   );
