@@ -33,6 +33,8 @@ npm run dev
 npm run start
 ```
 
+## (El primer usuario registrado sera administrador, el cual tiene los privilegios de crear productos )
+
 ## requerimientos:
 
 - tener instalado node
