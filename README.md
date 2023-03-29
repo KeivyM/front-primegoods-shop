@@ -33,6 +33,12 @@ npm run dev
 npm run start
 ```
 
+## 5. agregar productos a la base de datos (opcional):
+
+### puedes crear en mongoCompass una coleccion llamada 'products' y importar el archivo 'products.json' que esta en la raiz del proyecto
+
+</br>
+
 ## (El primer usuario registrado sera administrador, el cual tiene los privilegios de crear productos )
 
 ## requerimientos:
