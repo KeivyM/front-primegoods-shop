@@ -31,6 +31,7 @@ export const ProductPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [imageId, setImageId] = useState(0);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -51,6 +52,11 @@ export const ProductPage = () => {
     navigate("/");
   };
 
+  const handleImageSelected = (value) => {
+    console.log("changing image...");
+    setImageId(value);
+  };
+
   if (!product) {
     return <Loader />;
   }
@@ -62,7 +68,7 @@ export const ProductPage = () => {
         <IconButton>
           <ArrowBackIcon onClick={() => navigate("/")} />
         </IconButton>
-        <Card>
+        <Card sx={{ border: "1px solid #ccc" }}>
           <Grid container direction="row" spacing={2}>
             <Grid
               item
@@ -75,11 +81,45 @@ export const ProductPage = () => {
               }}
               xs={8}
             >
-              <CardMedia
-                component="img"
-                image={product.images[0]}
-                alt={product.title}
-              />
+              <Grid item>
+                <CardMedia
+                  component="img"
+                  image={product.images[imageId]}
+                  alt={product.title}
+                  sx={{
+                    // maxWidth: "600px",
+                    // maxHeight: "600px",
+                    width: "600px",
+                    height: "500px",
+                    objectFit: "cover",
+                    borderRadius: "15px",
+                    margin: "0 auto",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                />
+              </Grid>
+              <Grid container flexDirection={"row"} gap={1}>
+                {product?.images.map((image, i) => {
+                  return (
+                    <Grid item sx={{ borderRadius: "10px" }}>
+                      <img
+                        src={image}
+                        alt="dhgjgf"
+                        width="100px"
+                        height="100px"
+                        style={{
+                          objectFit: "cover",
+                          userSelect: "none",
+                          borderRadius: "5px",
+                        }}
+                        onClick={() => handleImageSelected(i)}
+                      />
+                    </Grid>
+                  );
+                })}
+              </Grid>
             </Grid>
             <Grid item xs={4}>
               <CardContent sx={{ position: "relative" }}>
