@@ -1,0 +1,18 @@
+.overflow-on-slider-images {
+  /* display: inline-flex; */
+  /* padding: 20px 30px; */
+  position: relative;
+  box-sizing: border-box;
+}
+.overflow-on-slider-images::before {
+  content: "jjj";
+  background: red;
+  display: block;
+  margin: -16px 0px;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100px !important;
+  z-index: 100;
+}

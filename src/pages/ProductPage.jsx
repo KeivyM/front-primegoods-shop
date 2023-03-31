@@ -13,11 +13,14 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { ShoppingCart } from "@mui/icons-material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Header, Loader } from "../components";
 import { AxiosConfig } from "../utils/AxiosConfig";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useDispatch } from "react-redux";
 import { addItem } from "../store/cart/cartSlice";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+// import "../css/overflow-on-slider-images.css";
 
 const Container = styled("div")({
   display: "flex",
@@ -53,7 +56,6 @@ export const ProductPage = () => {
   };
 
   const handleImageSelected = (value) => {
-    console.log("changing image...");
     setImageId(value);
   };
 
@@ -64,46 +66,92 @@ export const ProductPage = () => {
   return (
     <>
       <Header />
-      <Container>
-        <IconButton>
-          <ArrowBackIcon onClick={() => navigate("/")} />
+      <Container sx={{ maxWidth: "1200px", margin: "0 auto" }}>
+        <IconButton onClick={() => navigate("/")}>
+          <ArrowBackIcon />
         </IconButton>
-        <Card sx={{ border: "1px solid #ccc" }}>
-          <Grid container direction="row" spacing={2}>
+
+        <Card sx={{ border: "1px solid #ccc", background: "#f001" }}>
+          <Grid
+            container
+            direction={{ xs: "column", md: "row" }}
+            // spacing={2}
+            p={5}
+            // sx={{ background: "#ff05" }}
+          >
             <Grid
               item
               sx={{
-                height: "50%",
-                maxHeight: "80vh",
-                maxWidth: "50vw",
-                width: "70%",
+                // height: "50%",
+                // maxHeight: "80vh",
+                // maxWidth: "50vw",
+                // width: "70%",
                 overflow: "auto",
+                // m: "0 auto",
+                // flexDirection: "column",
+                // background: "red",
+                // display: "flex",
+                // flexDirection: { lg: "row" },
               }}
               xs={8}
             >
-              <Grid item>
-                <CardMedia
-                  component="img"
-                  image={product.images[imageId]}
-                  alt={product.title}
-                  sx={{
-                    // maxWidth: "600px",
-                    // maxHeight: "600px",
-                    width: "600px",
-                    height: "500px",
-                    objectFit: "cover",
-                    borderRadius: "15px",
-                    margin: "0 auto",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                />
+              <Grid
+                item
+                sx={{
+                  border: "1px solid #0005",
+                  p: 1,
+                  borderRadius: "10px 10px 0 0",
+                }}
+              >
+                <Zoom>
+                  <CardMedia
+                    component="img"
+                    image={product.images[imageId]}
+                    alt={product.title}
+                    sx={{
+                      // maxWidth: "600px",
+                      // maxHeight: "600px",
+                      // width: "600px",
+                      height: "500px",
+                      objectFit: "cover",
+                      borderRadius: "15px",
+                      // margin: "0 auto",
+                      // display: "flex",
+                      // justifyContent: "center",
+                      // alignItems: "center",
+                    }}
+                  />
+                </Zoom>
               </Grid>
-              <Grid container flexDirection={"row"} gap={1}>
+              <Grid
+                className="overflow-on-slider-images"
+                container
+                flexDirection={"row"}
+                gap={1}
+                sx={{
+                  background: "#ccc8",
+                  border: "1px solid #aaa",
+                  // borderRadius: "0 0 5px 15px ",
+                  overflow: "auto",
+                  flexWrap: "nowrap",
+                  position: "relative",
+                  p: 2,
+                }}
+              >
                 {product?.images.map((image, i) => {
                   return (
-                    <Grid item sx={{ borderRadius: "10px" }}>
+                    <Grid
+                      item
+                      sx={{
+                        borderRadius: "10px",
+                        filter: "contrast(90%)",
+                        "&:hover": {
+                          cursor: "pointer",
+                          filter: "contrast(100%)",
+                        },
+                      }}
+                      key={i}
+                    >
                       <img
                         src={image}
                         alt="dhgjgf"
@@ -113,6 +161,7 @@ export const ProductPage = () => {
                           objectFit: "cover",
                           userSelect: "none",
                           borderRadius: "5px",
+                          border: "1px solid #bbb",
                         }}
                         onClick={() => handleImageSelected(i)}
                       />
@@ -121,23 +170,36 @@ export const ProductPage = () => {
                 })}
               </Grid>
             </Grid>
-            <Grid item xs={4}>
-              <CardContent sx={{ position: "relative" }}>
+            <Grid
+              item
+              xs={4}
+              sx={{
+                // background: "pink",
+                display: "flex",
+                flexDirection: "column",
+                // justifyContent: "space-around",
+              }}
+            >
+              <CardContent
+                sx={{
+                  position: "relative",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  mt: "20px",
+                }}
+              >
                 <Typography variant="h5" component="h2">
                   {product.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body1" color="text.secondary">
                   {product.description}
                 </Typography>
-                <Typography variant="h6" component="p">
-                  {product.price}
+                <Typography variant="h6" component="p" color={"#484"}>
+                  ${product.price.toFixed(2)}
                 </Typography>
-                <Chip
-                  label={product.category}
-                  sx={{ position: "absolute", top: "10px", right: "10px" }}
-                />
               </CardContent>
-              <CardActions sx={{ justifyContent: "center" }}>
+              <CardActions sx={{ justifyContent: "center", mt: 5 }}>
                 <Button
                   startIcon={<ShoppingCart />}
                   size="large"

@@ -46,9 +46,9 @@ export const ProductCard = ({
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          {/* <Typography variant="body2" color="text.secondary">
             {description}
-          </Typography>
+          </Typography> */}
           <Typography variant="h6" color="text.secondary">
             ${price?.toFixed(2)}
           </Typography>
