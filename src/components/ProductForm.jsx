@@ -22,12 +22,12 @@ export const ProductForm = () => {
   const navigate = useNavigate();
   const [valueCategory, setSelectedValue] = useState("");
   const [saving, setSaving] = useState(false);
-  const [valueImagen, setArchivoDeImagen] = useState(null);
+  const [listImages, setListImages] = useState(null);
 
   let formData = new FormData();
 
   function handleFileChange(event) {
-    setArchivoDeImagen(event.target.files[0]);
+    setListImages(event.target.files);
   }
 
   const {
@@ -51,8 +51,11 @@ export const ProductForm = () => {
         throw Object.assign(new Error("Empty Fields"), { code: 400 });
       }
 
+      for (const image of listImages) {
+        formData.append("images", image);
+      }
+
       formData.append("title", productData.title);
-      formData.append("images", valueImagen);
       formData.append("category", valueCategory);
       formData.append("price", productData.price);
       formData.append("description", productData.description);

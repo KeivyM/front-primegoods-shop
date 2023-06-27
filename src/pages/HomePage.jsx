@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Divider, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { AxiosConfig } from "../utils/AxiosConfig";
 import { ProductCard, SearchInput, Header } from "../components";
 
@@ -36,9 +36,7 @@ export const HomePage = () => {
       arrayProducts = [];
       setProductsFiltered([]);
     } else {
-      arrayProducts = [
-        ...new Set(searchByPrice.concat(searchByTitle, searchByCategory)),
-      ];
+      arrayProducts = [...new Set(searchByPrice.concat(searchByTitle, searchByCategory))];
       setProductsFiltered(arrayProducts);
     }
   }, [searchByTitle, searchByPrice, searchByCategory, emptyInput]);
@@ -60,13 +58,7 @@ export const HomePage = () => {
           setSearchByCategory={setSearchByCategory}
           setEmptyInput={setEmptyInput}
         />
-        <Grid
-          container
-          spacing={{ xs: 2, sm: 3, md: 4 }}
-          textAlign="center"
-          justifyContent="center"
-          pt={5}
-        >
+        <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} textAlign="center" justifyContent="center" pt={5}>
           {emptyInput
             ? products.map((product) => {
                 return (
@@ -74,8 +66,9 @@ export const HomePage = () => {
                     item
                     xs={10}
                     sm={5}
-                    md={3}
-                    sx={{ alignContent: "center" }}
+                    md={4}
+                    lg={3}
+                    sx={{ alignContent: "center", maxWidth: "300px", minWidth: "250px" }}
                     key={product._id}
                   >
                     <ProductCard
@@ -91,14 +84,7 @@ export const HomePage = () => {
               })
             : productsFiltered.map((product) => {
                 return (
-                  <Grid
-                    item
-                    xs={10}
-                    sm={5}
-                    md={3}
-                    sx={{ alignContent: "center" }}
-                    key={product._id}
-                  >
+                  <Grid item xs={10} sm={5} md={3} sx={{ alignContent: "center" }} key={product._id}>
                     <ProductCard
                       image={product.images[0]}
                       price={product.price}
@@ -111,8 +97,6 @@ export const HomePage = () => {
                 );
               })}
         </Grid>
-        {/* <ProductSlider /> */}
-        <Divider orientation="vertical" sx={{ height: "100%" }} />
       </Grid>
     </>
   );
