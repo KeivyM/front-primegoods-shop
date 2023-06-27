@@ -1,16 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Button,
-  IconButton,
-  Chip,
-  Grid,
-} from "@mui/material";
+import { Typography, Card, CardContent, CardActions, Button, IconButton, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { ShoppingCart } from "@mui/icons-material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -18,9 +8,9 @@ import { Header, Loader } from "../components";
 import { AxiosConfig } from "../utils/AxiosConfig";
 import { useDispatch } from "react-redux";
 import { addItem } from "../store/cart/cartSlice";
-import Zoom from "react-medium-image-zoom";
+import ImageCarousel from "../components/ImageCarousel";
+import numeral from "numeral";
 import "react-medium-image-zoom/dist/styles.css";
-// import "../css/overflow-on-slider-images.css";
 
 const Container = styled("div")({
   display: "flex",
@@ -34,13 +24,13 @@ export const ProductPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [imageId, setImageId] = useState(0);
 
   useEffect(() => {
     const getProduct = async () => {
       try {
         const { data } = await AxiosConfig.get(`/product/${id}`);
-        setProduct(data.data);
+        const images = data.data.images.map((url, id) => ({ url, id }));
+        setProduct({ ...data.data, images });
       } catch (error) {
         console.error(error);
         navigate("/");
@@ -51,12 +41,8 @@ export const ProductPage = () => {
 
   const handleAddToCart = () => {
     const { _id, title, price, description, images } = product;
-    dispatch(addItem({ id: _id, title, price, description, image: images[0] }));
+    dispatch(addItem({ id: _id, title, price, description, image: images[0].url }));
     navigate("/");
-  };
-
-  const handleImageSelected = (value) => {
-    setImageId(value);
   };
 
   if (!product) {
@@ -95,80 +81,7 @@ export const ProductPage = () => {
               }}
               xs={8}
             >
-              <Grid
-                item
-                sx={{
-                  border: "1px solid #0005",
-                  p: 1,
-                  borderRadius: "10px 10px 0 0",
-                }}
-              >
-                <Zoom>
-                  <CardMedia
-                    component="img"
-                    image={product.images[imageId]}
-                    alt={product.title}
-                    sx={{
-                      // maxWidth: "600px",
-                      // maxHeight: "600px",
-                      // width: "600px",
-                      height: "500px",
-                      objectFit: "cover",
-                      borderRadius: "15px",
-                      // margin: "0 auto",
-                      // display: "flex",
-                      // justifyContent: "center",
-                      // alignItems: "center",
-                    }}
-                  />
-                </Zoom>
-              </Grid>
-              <Grid
-                className="overflow-on-slider-images"
-                container
-                flexDirection={"row"}
-                gap={1}
-                sx={{
-                  background: "#ccc8",
-                  border: "1px solid #aaa",
-                  // borderRadius: "0 0 5px 15px ",
-                  overflow: "auto",
-                  flexWrap: "nowrap",
-                  position: "relative",
-                  p: 2,
-                }}
-              >
-                {product?.images.map((image, i) => {
-                  return (
-                    <Grid
-                      item
-                      sx={{
-                        borderRadius: "10px",
-                        filter: "contrast(90%)",
-                        "&:hover": {
-                          cursor: "pointer",
-                          filter: "contrast(100%)",
-                        },
-                      }}
-                      key={i}
-                    >
-                      <img
-                        src={image}
-                        alt="dhgjgf"
-                        width="100px"
-                        height="100px"
-                        style={{
-                          objectFit: "cover",
-                          userSelect: "none",
-                          borderRadius: "5px",
-                          border: "1px solid #bbb",
-                        }}
-                        onClick={() => handleImageSelected(i)}
-                      />
-                    </Grid>
-                  );
-                })}
-              </Grid>
+              <ImageCarousel images={product?.images} />
             </Grid>
             <Grid
               item
@@ -195,8 +108,8 @@ export const ProductPage = () => {
                 <Typography variant="body1" color="text.secondary">
                   {product.description}
                 </Typography>
-                <Typography variant="h6" component="p" color={"#484"}>
-                  ${product.price.toFixed(2)}
+                <Typography variant="h6" component="p" color={"#484"} sx={{ fontWeight: 600 }}>
+                  {numeral(product.price).format("$0,0.00")}
                 </Typography>
               </CardContent>
               <CardActions sx={{ justifyContent: "center", mt: 5 }}>

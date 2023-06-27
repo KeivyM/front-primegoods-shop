@@ -12,6 +12,7 @@ import {
   Chip,
   Grid,
 } from "@mui/material";
+import numeral from "numeral";
 import CloseIcon from "@mui/icons-material/Close";
 import { removeItem } from "../store/cart/cartSlice";
 
@@ -27,7 +28,7 @@ const Cart = () => {
         <Typography variant="h4" margin={"0 auto"} display={"inline"}>
           Your order
         </Typography>
-        <Chip label={"Total: $" + total.toFixed(2)} sx={{ bgcolor: "#fffe" }} />
+        <Chip label={"Total: " + numeral(total).format("$0,0.00")} sx={{ bgcolor: "#fffe", fontWeight: 600 }} />
       </Grid>
       <List sx={{ width: "100%" }}>
         {items.map((producto, i) => (
@@ -41,12 +42,8 @@ const Cart = () => {
                 primary={producto.title}
                 secondary={
                   <>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      color="primary"
-                    >
-                      {`Price: $${producto.price.toFixed(2)}`}
+                    <Typography component="span" variant="body2" color="primary">
+                      Price: {numeral(producto.price).format("$0,0.00")}
                     </Typography>
                     <br />
                     <Typography variant="body2" component="span" color="white">
@@ -55,11 +52,7 @@ const Cart = () => {
                   </>
                 }
               />
-              <IconButton
-                onClick={() => dispatch(removeItem(i))}
-                title="Remove item"
-                color="text"
-              >
+              <IconButton onClick={() => dispatch(removeItem(i))} title="Remove item" color="text">
                 <CloseIcon />
               </IconButton>
             </ListItem>
